@@ -4,10 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preparation & Entry | Navigating China</title>
+    <title>Navigating China: A Practical Handbook</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 仅新增：保留原有英文手写字体 + 新增可爱中文字体（不修改其他样式） -->
-    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <!--********** 保留原有英文手写字体 + 新增可爱中文字体（仅给中文用） 
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=ZCOOL+KuaiLe&display=swap"
+        rel="stylesheet">-->
+
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Freckle+Face&family=Patrick+Hand&family=Playpen+Sans+Hebrew:wght@100..800&display=swap"
+        rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {
@@ -21,79 +31,174 @@
                         lemon: '#FFE066',
                         lavender: '#D8BFD8',
                     },
+                    /*****************
                     fontFamily: {
-                        // 完全保留你原有英文手写字体配置
-                        doodle: ['Patrick Hand', 'cursive'],
+                         // 仅保留英文的手写字体（不修改）
+                         doodle: ['Patrick Hand', 'cursive'],
+                         // 新增：专门给中文用的可爱字体
+                         chinesecute: ['ZCOOL KuaiLe', 'sans-serif'],
+                     }, *********************/
+
+                    fontFamily: {
+                        en: ['Inter', 'sans-serif'],
+                        zh: ['Noto Serif SC', 'serif'],
                     },
                 }
             }
         }
     </script>
+
     <style type="text/tailwindcss">
+        /******************************************/
+
+        .playpen-sans-hebrew {
+            font-family: "Playpen Sans Hebrew", cursive;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        .playpen-sans-hebrew2 {
+            font-family: "Playpen Sans Hebrew", cursive;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .freckle-face-regular {
+            font-family: "Freckle Face", system-ui;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .patrick-hand-regular {
+            font-family: "Patrick Hand", cursive;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        /***************************************/
         @layer utilities {
             .text-shadow {
-                text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+                text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+
             }
+
             .doodle-border {
                 border: 3px dashed #333;
                 border-radius: 12px;
             }
         }
+
         html {
             scroll-behavior: smooth;
         }
 
-        /* 仅新增：核心字体区分规则（不修改任何颜色） */
+        /*1: 核心规则：仅中文文本用可爱字体，英文完全保留Patrick Hand 
+        1. 页面语言为中文时，所有文本优先用可爱中文字体，英文自动回退到Patrick Hand 
         html:lang(zh) body * {
             font-family: 'ZCOOL KuaiLe', 'Patrick Hand', 'cursive', sans-serif !important;
         }
+         2. 页面语言为英文时，强制用原有Patrick Hand（完全不修改） 
         html:lang(en) body * {
             font-family: 'Patrick Hand', 'cursive', sans-serif !important;
         }
 
-        /* 仅新增：语言下拉菜单字体适配（不修改颜色/布局） */
-        .group .absolute {
-            font-size: 1.1rem;
+         语言下拉菜单样式（仅“中文”二字用可爱字体，English保留原字体） */
+        html:lang(zh) body {
+            font-family: 'Inter', 'Noto Serif SC', serif;
         }
-        .group button {
-            font-family: 'Patrick Hand', cursive;
-            font-size: 1.1rem;
+
+
+        html:lang(en) body {
+            font-family: 'Inter', sans-serif;
         }
-        #lang-zh {
-            font-family: 'ZCOOL KuaiLe', sans-serif !important;
-        }
-        #lang-en {
-            font-family: 'Patrick Hand', cursive !important;
-        }
+
+        /* 响应式适配：手机端下拉菜单居中 */
         @media (max-width: 768px) {
             .group .absolute {
                 left: 0;
                 right: auto;
             }
         }
+
+        /* ======= 仅新增：标题/正文分字体（最小改动版） ======= */
+        @layer components {
+            /* 全站正文默认（你 body 上会加 font-en） */
+            .font-en {
+                font-family: 'Inter', sans-serif;
+            }
+
+            /* 所有“内容区标题”统一用更正式的衬线（中英文都稳） */
+            .section-title {
+                font-family: 'Noto Serif SC', serif;
+                font-weight: 600;
+                letter-spacing: 0.02em;
+            }
+
+            /* ✅ 新增：导航栏 + 页脚统一字体（更协调，比赛更稳） */
+            .nav-text {
+                font-family: 'Inter', sans-serif;
+                font-weight: 600;
+                letter-spacing: 0.01em;
+            }
+
+            .footer-text {
+                font-family: 'Inter', sans-serif;
+                font-weight: 500;
+                letter-spacing: 0.01em;
+            }
+			/* ✅ Checklist styles (memo-like) */
+			@layer components {
+			  .check-li {
+			    @apply flex items-center gap-3;
+			  }
+			
+			  .check-li.is-done {
+			    @apply text-gray-400 line-through;
+			  }
+			
+			  .check-box {
+			    width: 18px;
+			    height: 18px;
+			    cursor: pointer;
+			    accent-color: var(--ck-accent, #FF9F45);
+			  }
+			}
+
+        }
     </style>
 </head>
 
-<body class="bg-pinky font-doodle text-gray-800 pt-16">
-    <!-- 导航栏（完全保留你原有代码，无任何修改） -->
-    <header class="fixed top-0 left-0 z-50 w-full py-2 px-4 md:px-8 bg-pinky/95 backdrop-blur-sm">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between">
-            <div class="flex items-center mb-4 md:mb-0">
+<body class="bg-pinky  text-gray-800 pt-20 font-en">
+    <!-- 头部区域 -->
+    <header class="fixed top-0 left-0 z-50 w-full py-2 px-4 md:px-8 bg-pinky/95 backdrop-blur-sm ">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between ">
+            <div class="flex items-center mb-4 md:mb-0 ">
                 <img src="images/logo.png" alt="Sun Logo" class="w-14 h-14 mr-3">
-                <h1 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold text-shadow">
+
+                <!-- ✅ 按你要求：导航栏 Navigating China 字体不动 -->
+                <h1 class="freckle-face-regular text-[clamp(1.8rem,4vw,2.8rem)]  text-shadow">
                     Navigating <span class="text-sunny">China</span>
                 </h1>
             </div>
-            <nav class="flex flex-wrap gap-4">
+
+            <!-- ✅ 仅加 nav-text，不改结构 -->
+            <!--2.*****************
+		    <nav class="flex flex-wrap gap-4 nav-text">
+			***********************************-->
+
+            <nav id="main-nav" class="flex flex-wrap gap-4 nav-text">
+
                 <a href="index.html"
                     class="px-4 py-2 bg-skyblue hover:bg-skyblue/80 rounded-full transition-all transform hover:scale-105 shadow-sm">Home</a>
                 <a href="index.html#contents-section"
                     class="px-4 py-2 bg-white hover:bg-gray-100 rounded-full transition-all transform hover:scale-105 shadow-sm">Guide</a>
                 <a href="#"
-                    class="px-4 py-2 bg-white hover:bg-gray-100 rounded-full transition-all transform hover:scale-105 shadow-sm">Tips</a>
+                    class="px-4 py-2 bg-white hover:bg-gray-100 rounded-full transition-all transform hover:scale-105 shadow-sm">Buy</a>
                 <a href="#"
                     class="px-4 py-2 bg-white hover:bg-gray-100 rounded-full transition-all transform hover:scale-105 shadow-sm">About</a>
-                <!-- 语言下拉菜单（仅保留结构，样式不修改原有颜色） -->
+                <!-- Language下拉菜单 -->
                 <div class="relative group">
                     <button
                         class="px-4 py-2 bg-white hover:bg-gray-100 rounded-full transition-all transform hover:scale-105 shadow-sm flex items-center gap-2">
@@ -112,23 +217,105 @@
         </div>
     </header>
 
-    <!-- 标题区（完全保留你原有代码，颜色/布局无任何修改） -->
-    <section class="w-full py-8 px-4 md:px-8 bg-gradient-to-b from-sunny/30 to-white/50">
-        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-8">
-            <div class="w-full md:w-1/2 text-center md:text-left">
-                <h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold text-white text-shadow mb-4">Preparation & Entry
-                </h2>
-                <p class="text-lg">Everything you need to prepare before your trip to China 🧳</p>
+
+    <!-- ✅ 页面内二级导航（页面内容里，不 fixed；二级导航仅桌面显示；面包屑所有尺寸显示） -->
+    <section class="w-full px-4 md:px-8 mt-3 bg-sunny/30">
+        <div class="max-w-6xl mx-auto">
+
+            <!-- 二级导航：md 及以上显示；强制一行；无“卡片底色”，直接融入页面背景 -->
+            <div class="hidden md:block">
+                <nav id="sub-nav" class="flex items-center justify-between gap-1 nav-text text-[13px]">
+                    <!-- 当前页高亮（只保留轻微高亮，不要大底色块） -->
+                    <a id="subnav-prep" href="preparation.html"
+                        class="flex items-center gap-1 px-2 py-1.5 rounded-xl text-sunny">
+                        <span class="text-base">🧳</span>
+                        <span>Preparation & Entry</span>
+                    </a>
+
+                    <span class="h-5 w-px bg-white/60"></span>
+
+                    <a id="subnav-trans" href="#"
+                        class="flex items-center gap-1 px-2 py-1.5 rounded-xl text-gray-700 hover:bg-white/60 hover:text-sunny transition">
+                        <span class="text-base">🗺️</span>
+                        <span class="md:inline lg:hidden">Transport & Maps</span>
+                        <span class="hidden lg:inline">Transportation & Navigation</span>
+                    </a>
+
+                    <span class="h-5 w-px bg-white/60"></span>
+
+                    <a id="subnav-pay" href="#"
+                        class="flex items-center gap-1 px-2 py-1.5 rounded-xl text-gray-700 hover:bg-white/60 hover:text-sunny transition">
+                        <span class="text-base">💳</span>
+                        <span class="md:inline lg:hidden">Payment & Tax</span>
+                        <span class="hidden lg:inline">Payment & Tax Refund</span>
+                    </a>
+
+                    <span class="h-5 w-px bg-white/60"></span>
+
+                    <a id="subnav-acco" href="#"
+                        class="flex items-center gap-1 px-2 py-1.5 rounded-xl text-gray-700 hover:bg-white/60 hover:text-sunny transition">
+                        <span class="text-base">🏨</span>
+                        <span>Accommodation</span>
+                    </a>
+
+                    <span class="h-5 w-px bg-white/60"></span>
+
+                    <a id="subnav-emer" href="#"
+                        class="flex items-center gap-1 px-2 py-1.5 rounded-xl text-gray-700 hover:bg-white/60 hover:text-sunny transition">
+                        <span class="text-base">🆘</span>
+                        <span class="md:inline lg:hidden">Emergency</span>
+                        <span class="hidden lg:inline">Emergency Handling</span>
+                    </a>
+
+                    <span class="h-5 w-px bg-white/60"></span>
+
+                    <a id="subnav-cult" href="#"
+                        class="flex items-center gap-1 px-2 py-1.5 rounded-xl text-gray-700 hover:bg-white/60 hover:text-sunny transition">
+                        <span class="text-base">🎎</span>
+                        <span class="md:inline lg:hidden">Culture</span>
+                        <span class="hidden lg:inline">Travel & Culture</span>
+                    </a>
+                </nav>
+
+                <!-- ✅ 给当前页一个“细下划线高亮”（更融合，不抢背景） -->
+                <div class="mt-2 h-[2px] w-24 bg-sunny/70 rounded-full"></div>
             </div>
-            <div class="w-full md:w-1/2">
-                <img src="images/01.png" alt="Preparation Illustration" class="w-full max-w-[200px] mx-auto">
+
+            <!-- 面包屑：所有尺寸都显示；更小、不加粗、无底色块 -->
+            <div class="mt-3 text-xs text-gray-500">
+                <a id="crumb-home" href="index.html" class="hover:text-gray-700 transition">Home</a>
+                <span class="mx-1 text-gray-300">/</span>
+                <a id="crumb-guide" href="index.html#contents-section" class="hover:text-gray-700 transition">Guide</a>
+                <span class="mx-1 text-gray-300">/</span>
+                <span id="crumb-current" class="text-gray-600">Preparation & Entry</span>
             </div>
+
         </div>
     </section>
 
+
+    <!-- 标题区（完全保留你原有代码，颜色/布局无任何修改） -->
+    <section class="w-full py-8 px-4 md:px-8 bg-gradient-to-b from-sunny/30 to-white/50">
+        <div class="max-w-5xl mx-auto flex flex-col items-center gap-8">
+
+            <div class="max-w-3xl text-center">
+                <br><br><br><br>
+                <h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold text-white text-shadow mb-4">
+                    Preparation & Entry
+                </h2>
+                <p class="text-lg">
+                    Everything you need to prepare before your trip to China 🧳
+                </p>
+                <br><br><br><br><br><br><br><br><br>
+            </div>
+
+        </div>
+    </section>
+
+
     <!-- 内容区（完全保留你原有代码，所有颜色/样式无修改） -->
     <section class="w-full py-12 px-4 md:px-8 bg-white/50">
-        <div class="max-w-5xl mx-auto">
+        <div class="max-w-5xl mx-auto" id="items-checklist">
             <div class="text-center mb-10">
                 <h3 class="text-2xl font-bold text-sunny relative inline-block">
                     <span class="bg-white px-6 py-2 rounded-2xl shadow-md transform rotate-1 border-2 border-sunny">📋
@@ -136,6 +323,24 @@
                     <span
                         class="absolute -top-3 -right-7 text-xs font-bold bg-peach text-white px-2 py-1 rounded-full shadow-sm border border-white">Checklist</span>
                 </h3>
+            </div>
+            <!-- ✅ Checklist Tools (progress + reset) -->
+            <div class="mb-8">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <div class="text-sm text-gray-600">
+                        <span class="font-semibold text-gray-700">Checklist Progress:</span>
+                        <span id="checklist-count">0 / 0</span>
+                    </div>
+
+                    <button id="checklist-reset"
+                        class="px-4 py-2 bg-white hover:bg-gray-50 rounded-full border-2 border-sunny/40 shadow-sm transition">
+                        Reset checklist
+                    </button>
+                </div>
+
+                <div class="mt-3 w-full h-3 bg-white/70 rounded-full border border-sunny/20 overflow-hidden">
+                    <div id="checklist-bar" class="h-full w-0 bg-sunny/70 rounded-full transition-all"></div>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -159,49 +364,6 @@
                     <div class="absolute bottom-0 right-0 w-16 h-16 opacity-10">📄</div>
                     <div class="absolute bottom-2 right-2 text-sunny-200 text-xl">✨</div>
                 </div>
-
-                <!-- 2. Payment Instrument -->
-                <div
-                    class="bg-skyblue/10 p-6 rounded-2xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-2 border-2 border-skyblue-200 relative overflow-hidden">
-                    <img src="images/cash.png" alt="Cash Icon" class="absolute top-6 right-6 w-13 h-12">
-                    <div class="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-skyblue-200/50 to-transparent">
-                    </div>
-                    <h4 class="font-bold text-skyblue text-xl mb-4 mt-2">Payment Instrument</h4>
-                    <ul class="space-y-2 pl-2">
-                        <li class="flex items-center">
-                            <span class="inline-block w-4 h-4 bg-skyblue rounded-full mr-2"></span>
-                            Cash (≤ ¥20,000), UnionPay/Visa/Mastercard
-                        </li>
-                        <li class="flex items-center">
-                            <span class="inline-block w-4 h-4 bg-skyblue rounded-full mr-2"></span>
-                            Alipay/WeChat Pay (bind foreign card first)
-                        </li>
-                    </ul>
-                    <div class="absolute bottom-0 right-0 w-16 h-16 opacity-10">💳</div>
-                    <div class="absolute bottom-2 right-2 text-skyblue-200 text-xl">💳</div>
-                </div>
-
-                <!-- 3. Electronic Equipment -->
-                <div
-                    class="bg-mint/10 p-6 rounded-2xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-2 border-2 border-mint-200 relative overflow-hidden">
-                    <img src="images/charger.png" alt="Charger Icon" class="absolute top-6 right-6 w-13 h-12">
-                    <div class="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-mint-200/50 to-transparent">
-                    </div>
-                    <h4 class="font-bold text-mint text-xl mb-4 mt-2">Electronic Equipment</h4>
-                    <ul class="space-y-2 pl-2">
-                        <li class="flex items-center">
-                            <span class="inline-block w-4 h-4 bg-mint rounded-full mr-2"></span>
-                            Charger (≤ 20,000 mAh) + China-standard plug adapter
-                        </li>
-                        <li class="flex items-center">
-                            <span class="inline-block w-4 h-4 bg-mint rounded-full mr-2"></span>
-                            Phone, tablet, camera, laptop, etc.
-                        </li>
-                    </ul>
-                    <div class="absolute bottom-0 right-0 w-16 h-16 opacity-10">🔌</div>
-                    <div class="absolute bottom-2 right-2 text-mint-200 text-xl">🔌</div>
-                </div>
-
                 <!-- 4. Clothing -->
                 <div
                     class="bg-peach/10 p-6 rounded-2xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-2 border-2 border-peach-200 relative overflow-hidden">
@@ -222,30 +384,29 @@
                     <div class="absolute bottom-0 right-0 w-16 h-16 opacity-10">👕</div>
                     <div class="absolute bottom-2 right-2 text-peach-200 text-xl">👕</div>
                 </div>
-
-                <!-- 5. Utilities -->
+                <!-- 2. Payment Instrument -->
                 <div
-                    class="bg-lavender/10 p-6 rounded-2xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-2 border-2 border-lavender-200 relative overflow-hidden">
-                    <img src="images/utils.PNG" alt="Utils Icon" class="absolute top-6 right-6 w-13 h-12">
-                    <div class="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-lavender-200/50 to-transparent">
+                    class="bg-skyblue/10 p-6 rounded-2xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-2 border-2 border-skyblue-200 relative overflow-hidden">
+                    <img src="images/cash.png" alt="Cash Icon" class="absolute top-6 right-6 w-13 h-12">
+                    <div class="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-skyblue-200/50 to-transparent">
                     </div>
-                    <h4 class="font-bold text-lavender text-xl mb-4 mt-2">Utilities</h4>
+                    <h4 class="font-bold text-skyblue text-xl mb-4 mt-2">Payment Instrument</h4>
                     <ul class="space-y-2 pl-2">
                         <li class="flex items-center">
-                            <span class="inline-block w-4 h-4 bg-lavender rounded-full mr-2"></span>
-                            Local SIM/eSIM card + PIN for bank cards
+                            <span class="inline-block w-4 h-4 bg-skyblue rounded-full mr-2"></span>
+                            Cash (≤ ¥20,000)
                         </li>
                         <li class="flex items-center">
-                            <span class="inline-block w-4 h-4 bg-lavender rounded-full mr-2"></span>
-                            Chinese/English allergy card + medication translation
+                            <span class="inline-block w-4 h-4 bg-skyblue rounded-full mr-2"></span>
+                            UnionPay/Visa/Mastercard and other bank cards
                         </li>
                         <li class="flex items-center">
-                            <span class="inline-block w-4 h-4 bg-lavender rounded-full mr-2"></span>
-                            Luggage tag + AirTag (for tracking)
+                            <span class="inline-block w-4 h-4 bg-skyblue rounded-full mr-2"></span>
+                            Alipay/WeChat with external card binding
                         </li>
                     </ul>
-                    <div class="absolute bottom-0 right-0 w-16 h-16 opacity-10">🔧</div>
-                    <div class="absolute bottom-2 right-2 text-lavender-200 text-xl">🔧</div>
+                    <div class="absolute bottom-0 right-0 w-16 h-16 opacity-10">💳</div>
+                    <div class="absolute bottom-2 right-2 text-skyblue-200 text-xl">💳</div>
                 </div>
 
                 <!-- 6. Emergency Backup -->
@@ -258,26 +419,118 @@
                     <ul class="space-y-2 pl-2">
                         <li class="flex items-center">
                             <span class="inline-block w-4 h-4 bg-lemon rounded-full mr-2"></span>
-                            Emergency contact list + hotel reservation confirmations
+                            Emergency contact cards
                         </li>
                         <li class="flex items-center">
                             <span class="inline-block w-4 h-4 bg-lemon rounded-full mr-2"></span>
-                            Personal medications + first-aid kit
+                            Hotel reservations
+                        </li>
+                        <li class="flex items-center">
+                            <span class="inline-block w-4 h-4 bg-lemon rounded-full mr-2"></span>
+                            Medications
                         </li>
                     </ul>
                     <div class="absolute bottom-0 right-0 w-16 h-16 opacity-10">🩹</div>
                     <div class="absolute bottom-2 right-2 text-lemon-200 text-xl">🩹</div>
                 </div>
+
+
+
+                <!-- 3. Electronic Equipment -->
+                <div
+                    class="bg-mint/10 p-6 rounded-2xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-2 border-2 border-mint-200 relative overflow-hidden">
+                    <img src="images/charger.png" alt="Charger Icon" class="absolute top-6 right-6 w-13 h-12">
+                    <div class="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-mint-200/50 to-transparent">
+                    </div>
+                    <h4 class="font-bold text-mint text-xl mb-4 mt-2">Electronic Equipment</h4>
+                    <ul class="space-y-2 pl-2">
+                        <li class="flex items-center">
+                            <span class="inline-block w-4 h-4 bg-mint rounded-full mr-2"></span>
+                            Charger (≤ 20,000 mAh)
+                        </li>
+                        <li class="flex items-center">
+                            <span class="inline-block w-4 h-4 bg-mint rounded-full mr-2"></span>
+                            China-standard plug adapter
+                        </li>
+                        <li class="flex items-center">
+                            <span class="inline-block w-4 h-4 bg-mint rounded-full mr-2"></span>
+                            Camera
+                        </li>
+                        <li class="flex items-center">
+                            <span class="inline-block w-4 h-4 bg-mint rounded-full mr-2"></span>
+                            Cell Phone
+                        </li>
+                        <li class="flex items-center">
+                            <span class="inline-block w-4 h-4 bg-mint rounded-full mr-2"></span>
+                            Tablet
+                        </li>
+                        <li class="flex items-center">
+                            <span class="inline-block w-4 h-4 bg-mint rounded-full mr-2"></span>
+                            Computer
+                        </li>
+                    </ul>
+                    <div class="absolute bottom-0 right-0 w-16 h-16 opacity-10">🔌</div>
+                    <div class="absolute bottom-2 right-2 text-mint-200 text-xl">🔌</div>
+                </div>
+
+                <!-- 5. Utilities -->
+                <div
+                    class="bg-lavender/10 p-6 rounded-2xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-2 border-2 border-lavender-200 relative overflow-hidden">
+                    <img src="images/utils.PNG" alt="Utils Icon" class="absolute top-6 right-6 w-13 h-12">
+                    <div class="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-lavender-200/50 to-transparent">
+                    </div>
+                    <h4 class="font-bold text-lavender text-xl mb-4 mt-2">Utilities</h4>
+                    <ul class="space-y-2 pl-2">
+                        <li class="flex items-center">
+                            <span class="inline-block w-4 h-4 bg-lavender rounded-full mr-2"></span>
+                            Local SIM/eSIM card
+                        </li>
+                        <li class="flex items-center">
+                            <span class="inline-block w-4 h-4 bg-lavender rounded-full mr-2"></span>
+                            Card skimmer pin
+                        </li>
+                        <li class="flex items-center">
+                            <span class="inline-block w-4 h-4 bg-lavender rounded-full mr-2"></span>
+                            Chinese/English allergy card
+                        </li>
+                        <li class="flex items-center">
+                            <span class="inline-block w-4 h-4 bg-lavender rounded-full mr-2"></span>
+                            Medication translation form
+                        </li>
+                        <li class="flex items-center">
+                            <span class="inline-block w-4 h-4 bg-lavender rounded-full mr-2"></span>
+                            Luggage tag
+                        </li>
+                        <li class="flex items-center">
+                            <span class="inline-block w-4 h-4 bg-lavender rounded-full mr-2"></span>
+                            AirTag
+                        </li>
+                    </ul>
+                    <div class="absolute bottom-0 right-0 w-16 h-16 opacity-10">🔧</div>
+                    <div class="absolute bottom-2 right-2 text-lavender-200 text-xl">🔧</div>
+                </div>
+
             </div>
 
-            <div
-                class="mt-10 p-4 bg-white rounded-2xl shadow-md text-center border-2 border-sunny-200 relative overflow-hidden">
+            <div class="mt-10 p-4 bg-white rounded-2xl shadow-md border-2 border-sunny-200 relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-sunny-200/50 to-transparent"></div>
-                <p class="text-sm text-gray-600 flex items-center justify-center gap-2 relative z-10">
-                    <span class="text-sunny">✨</span>
-                    Pro Tip: Make a digital copy of all important documents and store them in the cloud!
-                    <span class="text-sunny">✨</span>
-                </p>
+
+                <!-- Pro Tip 标题行 - 单独成行居中 -->
+                <div class="text-sm text-sm text-gray-600 mb-2">
+                    <span class="text-sunny font-bold">✨ Pro Tip: ✨</span>
+                </div>
+
+                <!-- 建议列表 - 左对齐，带缩进 -->
+                <div class="text-sm text-gray-600 pl-8 pr-4 pb-2">
+                    <ul class="space-y-1 list-disc">
+                        <li>Download the offline map package</li>
+                        <li>Take a screenshot to save the air ticket, hotel order, passport page, the Chinese name of
+                            key address</li>
+                        <li>Prepare a Chinese allergy card with key information such as "Peanut/Seafood Allergy" for
+                            easy communication with merchants</li>
+                    </ul>
+                </div>
+
                 <div class="absolute bottom-2 right-2 text-sunny-200 text-xl">💡</div>
             </div>
         </div>
@@ -295,12 +548,11 @@
                     </h3>
                 </div>
 
+                <!-- 流程容器：相对定位承载流程线和卡片 -->
                 <div class="relative">
-                    <div
-                        class="hidden md:block absolute top-1/2 left-0 right-0 h-2 bg-gradient-to-r from-red-200 via-green-200 to-pink-200 -translate-y-1/2 z-0 rounded-full">
-                    </div>
+                    <!-- 第一行卡片 grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
 
-                    <div class="grid grid-cols-1 md:grid-cols-6 gap-4 md:gap-6 relative z-10">
                         <!-- 1. Flight Landing -->
                         <div
                             class="bg-red-50 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-2 border-2 border-red-200 relative overflow-hidden">
@@ -310,19 +562,17 @@
                             <div
                                 class="absolute bottom-0 left-0 w-full h-4 bg-gradient-to-r from-red-200/50 to-transparent">
                             </div>
-                            <h4 class="font-bold text-red-600 text-center mb-3 mt-1" id="flight-landing-title">Flight <br>Landing</h4>
-                            <ul class="text-sm space-y-2" id="flight-landing-list">
+                            <h4 class="font-bold text-red-600 text-center mb-3 mt-1">Flight landing <br>→ Stay Seated
+                            </h4>
+                            <ul class="text-sm space-y-2">
                                 <li class="flex items-start gap-2">
                                     <span class="text-red-400 mt-1">✏️</span>
-                                    <span>Carry a pen for landing card/customs declaration</span>
+                                    <span>Carry a pen to fill out landing card/customs declaration.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-red-400 mt-1">📱</span>
-                                    <span>Open "Customs Passenger Finger Service" mini-program</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-red-400 mt-1">💺</span>
-                                    <span>Stay seated until arrival</span>
+                                    <span>Open the "Customs Passenger Finger Service" mini program, scan the code to
+                                        declare in advance faster than paper.</span>
                                 </li>
                             </ul>
                         </div>
@@ -336,15 +586,13 @@
                             <div
                                 class="absolute bottom-0 left-0 w-full h-4 bg-gradient-to-r from-green-200/50 to-transparent">
                             </div>
-                            <h4 class="font-bold text-green-600 text-center mb-3 mt-1" id="quarantine-inspection-title">Quarantine Inspection</h4>
-                            <ul class="text-sm space-y-2" id="quarantine-inspection-list">
+                            <h4 class="font-bold text-green-600 text-center mb-3 mt-1">Quarantine inspection <br>→ Scan
+                                QR Code</h4>
+                            <ul class="text-sm space-y-2">
                                 <li class="flex items-start gap-2">
                                     <span class="text-green-400 mt-1">📷</span>
-                                    <span>Scan QR Code to get Customs Declaration Code</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-green-400 mt-1">🪪</span>
-                                    <span>Keep passport/boarding pass ready</span>
+                                    <span>Prepare your Customs Declaration Code (Black Code) and keep passport/boarding
+                                        pass ready.</span>
                                 </li>
                             </ul>
                         </div>
@@ -358,68 +606,86 @@
                             <div
                                 class="absolute bottom-0 left-0 w-full h-4 bg-gradient-to-r from-orange-200/50 to-transparent">
                             </div>
-                            <h4 class="font-bold text-orange-600 text-center mb-3 mt-1" id="border-inspection-title">Border <br> Inspection</h4>
-                            <ul class="text-sm space-y-2" id="border-inspection-list">
+                            <h4 class="font-bold text-orange-600 text-center mb-3 mt-1">Border inspection <br>→ Passport
+                                Stamp</h4>
+                            <ul class="text-sm space-y-2">
                                 <li class="flex items-start gap-2">
                                     <span class="text-orange-400 mt-1">🚶</span>
-                                    <span>Take the "foreigner's lane" (passport icons)</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-orange-400 mt-1">✍️</span>
-                                    <span>Get your passport stamped</span>
+                                    <span>Take the "foreigner's lane" (marked with passport icons/English signs)</span>
                                 </li>
                             </ul>
                         </div>
+                    </div>
 
-                        <!-- 4. Baggage Claim -->
-                        <div
-                            class="bg-blue-50 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-2 border-2 border-blue-200 relative overflow-hidden">
-                            <div
-                                class="absolute top-2 right-2 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs">
-                                4</div>
-                            <div
-                                class="absolute bottom-0 left-0 w-full h-4 bg-gradient-to-r from-blue-200/50 to-transparent">
-                            </div>
-                            <h4 class="font-bold text-blue-600 text-center mb-3 mt-1" id="baggage-claim-title">Baggage <br> Claim</h4>
-                            <ul class="text-sm space-y-2" id="baggage-claim-list">
-                                <li class="flex items-start gap-2">
-                                    <span class="text-blue-400 mt-1">📺</span>
-                                    <span>Check screens for your flight's carousel</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-blue-400 mt-1">🏷️</span>
-                                    <span>Use bright tags/AirTags for easy ID</span>
-                                </li>
-                            </ul>
+                    <!-- U型线区域：高度80px，上线在top:20px，下线在top:60px -->
+                    <div class="hidden md:block relative" style="height: 80px;">
+
+                        <!-- 上排竖线：第一行卡片底 → 上水平线 -->
+                        <div class="absolute bg-red-200"
+                            style="width:3px; left:calc(16.67% - 1.5px); top:0; height:31px;"></div>
+                        <div class="absolute bg-green-200"
+                            style="width:3px; left:calc(50%    - 1.5px); top:0; height:21px;"></div>
+                        <div class="absolute bg-orange-200"
+                            style="width:3px; left:calc(83.33% - 1.5px); top:0; height:21px;"></div>
+
+                        <!-- 上水平线（左→右），top:20px，到圆角块左边缘 -->
+                        <div class="absolute bg-red-200"
+                            style="height:3px; left:16.67%; right:calc(100% - 83.33% + 18px); top:20px;"></div>
+
+                        <!-- 右侧圆角转折，连接上线(top:20px)和下线(top:60px)，高度40px，宽36px -->
+                        <div class="absolute" style="
+            left: calc(83.33% - 18px);
+            top: 20px;
+            width: 36px;
+            height: 41px;
+            border-right: 3px solid #fdba74;
+            border-top: 3px solid #fdba74;
+            border-bottom: 3px solid #fdba74;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            background: transparent;
+        "></div>
+
+                        <!-- 下水平线（右→左），top:60px，延伸到粉点左侧 -->
+                        <div class="absolute bg-pink-200"
+                            style="height:2px; left:calc(16.67% - 32px); right:calc(100% - 83.33% + 18px); top:59px;">
                         </div>
 
-                        <!-- 5. Customs Inspection -->
-                        <div
-                            class="bg-indigo-50 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-2 border-2 border-indigo-200 relative overflow-hidden">
-                            <div
-                                class="absolute top-2 right-2 w-8 h-8 bg-indigo-500 text-white rounded-full flex items-center justify-center text-xs">
-                                5</div>
-                            <div
-                                class="absolute bottom-0 left-0 w-full h-4 bg-gradient-to-r from-indigo-200/50 to-transparent">
-                            </div>
-                            <h4 class="font-bold text-indigo-600 text-center mb-3 mt-1" id="customs-inspection-title">Customs <br> Inspection</h4>
-                            <ul class="text-sm space-y-2" id="customs-inspection-list">
-                                <li class="flex items-start gap-2">
-                                    <span class="text-indigo-400 mt-1">🟢</span>
-                                    <span>Nothing to declare → Green Channel</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-indigo-400 mt-1">🔴</span>
-                                    <span>Goods to declare → Red Channel</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-indigo-400 mt-1">🚫</span>
-                                    <span>Meat/fruit/seeds may be confiscated</span>
-                                </li>
-                            </ul>
-                        </div>
+                        <!-- 箭头：紧接下水平线左端，指向左 -->
+                        <div class="absolute w-0 h-0" style="left:calc(16.67% - 44px); top:54px;
+               border-top: 7px solid transparent;
+               border-bottom: 7px solid transparent;
+               border-right: 13px solid #f9a8d4;"></div>
 
-                        <!-- 6. Leaving the Airport -->
+                        <!-- 下排竖线：下水平线(top:60px) → 第二行卡片顶部 -->
+                        <div class="absolute bg-pink-200"
+                            style="width:3px; left:calc(16.67% - 1.5px); top:60px; bottom:0;"></div>
+                        <div class="absolute bg-indigo-200"
+                            style="width:3px; left:calc(50%    - 1.5px); top:60px; bottom:0;"></div>
+                        <div class="absolute bg-blue-200"
+                            style="width:3px; left:calc(83.33% - 1.5px); top:60px; bottom:0;"></div>
+
+                        <!-- 上排3个圆点：在上水平线中心（top:20px - 10px = 10px） -->
+                        <div class="absolute w-5 h-5 bg-red-400    rounded-full"
+                            style="left:calc(16.67% - 10px); top:10px; z-index:20;"></div>
+                        <div class="absolute w-5 h-5 bg-green-400  rounded-full"
+                            style="left:calc(50%    - 10px); top:10px; z-index:20;"></div>
+                        <div class="absolute w-5 h-5 bg-orange-400 rounded-full"
+                            style="left:calc(83.33% - 10px); top:10px; z-index:20;"></div>
+
+                        <!-- 下排3个圆点：在下水平线中心（top:60px - 10px = 50px） -->
+                        <div class="absolute w-5 h-5 bg-pink-400   rounded-full"
+                            style="left:calc(16.67% - 10px); top:50px; z-index:20;"></div>
+                        <div class="absolute w-5 h-5 bg-indigo-400 rounded-full"
+                            style="left:calc(50%    - 10px); top:50px; z-index:20;"></div>
+                        <div class="absolute w-5 h-5 bg-blue-400   rounded-full"
+                            style="left:calc(83.33% - 10px); top:50px; z-index:20;"></div>
+                    </div>
+
+                    <!-- 第二行卡片 grid（顺序：6, 5, 4） -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10 ">                       
+
+                        <!-- 6. Leaving the Airport (第二行第一个位置=视觉最右侧) -->
                         <div
                             class="bg-pink-50 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-2 border-2 border-pink-200 relative overflow-hidden">
                             <div
@@ -428,19 +694,65 @@
                             <div
                                 class="absolute bottom-0 left-0 w-full h-4 bg-gradient-to-r from-pink-200/50 to-transparent">
                             </div>
-                            <h4 class="font-bold text-pink-600 text-center mb-3 mt-1" id="leaving-airport-title">Leaving the Airport</h4>
-                            <ul class="text-sm space-y-2" id="leaving-airport-list">
+                            <h4 class="font-bold text-pink-600 text-center mb-3 mt-1">Leaving the airport <br>→
+                                Transportation</h4>
+                            <ul class="text-sm space-y-2">
                                 <li class="flex items-start gap-2">
-                                    <span class="text-pink-400 mt-1">🚗</span>
-                                    <span>Hotel pickup: Reserve in advance</span>
+                                    <span class="text-pink-400 mt-1">🏨</span>
+                                    <span>Hotel pickup: Reserve in advance by email with the hotel</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-pink-400 mt-1">🚕</span>
-                                    <span>Cab: Follow signs to queue area</span>
+                                    <span>Cab: follow the airport signs to the cab queue area/internet car waiting area,
+                                        see page 6 for details</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-pink-400 mt-1">🚇</span>
-                                    <span>Metro: Follow airport signs</span>
+                                    <span>Metro: follow airport signs, see page 5 for details</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- 5. Customs Inspection (第二行第二个位置=视觉中间) -->
+                        <div
+                            class="bg-indigo-50 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-2 border-2 border-indigo-200 relative overflow-hidden">
+                            <div
+                                class="absolute top-2 right-2 w-8 h-8 bg-indigo-500 text-white rounded-full flex items-center justify-center text-xs">
+                                5</div>
+                            <div
+                                class="absolute bottom-0 left-0 w-full h-4 bg-gradient-to-r from-indigo-200/50 to-transparent">
+                            </div>
+                            <h4 class="font-bold text-indigo-600 text-center mb-3 mt-1">Customs inspection <br>→ Choose
+                                the Right Lane</h4>
+                            <ul class="text-sm space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-indigo-400 mt-1">🟢</span>
+                                    <span>The inward and outward passengers who have nothing to declare shall choose the
+                                        "Nothing to Declare Channel" (green channel).</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-indigo-400 mt-1">🔴</span>
+                                    <span>The inward and outward passengers carrying articles to declare shall choose
+                                        the "Goods to Declare Channel" (red channel).</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- 4. Baggage Claim (第二行第三个位置=视觉最左侧) -->
+                        <div
+                            class="bg-blue-50 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-2 border-2 border-blue-200 relative overflow-hidden">
+                            <div
+                                class="absolute top-2 right-2 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs">
+                                4</div>
+                            <div
+                                class="absolute bottom-0 left-0 w-full h-4 bg-gradient-to-r from-blue-200/50 to-transparent">
+                            </div>
+                            <h4 class="font-bold text-blue-600 text-center mb-3 mt-1">Baggage claim <br>→ Check Screens
+                            </h4>
+                            <ul class="text-sm space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-blue-400 mt-1">🏷️</span>
+                                    <span>Use bright luggage tags/AirTags for easy identification.</span>
                                 </li>
                             </ul>
                         </div>
@@ -518,258 +830,603 @@
             </div>
         </footer>
 
-    <!-- 仅新增：语言切换核心JS（修复入境流程卡片文本替换问题） -->
-    <script>
-        const languageTexts = {
-            en: {
-                home: "Home",
-                guide: "Guide",
-                tips: "Tips",
-                about: "About",
-                language: "Language",
-                preparationEntry: "Preparation & Entry",
-                preparationDesc: "Everything you need to prepare before your trip to China 🧳",
-                listOfItems: "📋 List of Items",
-                checklist: "Checklist",
-                credentials: "Credentials",
-                passport: "Passport (valid for > 6 months)",
-                visa: "Visa (except visa waiver periods)",
-                paymentInstrument: "Payment Instrument",
-                cash: "Cash (≤ ¥20,000), UnionPay/Visa/Mastercard",
-                alipay: "Alipay/WeChat Pay (bind foreign card first)",
-                electronicEquipment: "Electronic Equipment",
-                charger: "Charger (≤ 20,000 mAh) + China-standard plug adapter",
-                devices: "Phone, tablet, camera, laptop, etc.",
-                clothing: "Clothing",
-                climate: "Pack for local climate (varies across China)",
-                weather: "Check destination weather in advance",
-                utilities: "Utilities",
-                simCard: "Local SIM/eSIM card + PIN for bank cards",
-                allergyCard: "Chinese/English allergy card + medication translation",
-                luggage: "Luggage tag + AirTag (for tracking)",
-                emergencyBackup: "Emergency Backup",
-                contactList: "Emergency contact list + hotel reservation confirmations",
-                medications: "Personal medications + first-aid kit",
-                proTip: "Pro Tip: Make a digital copy of all important documents and store them in the cloud!",
-                immigrationProcess: "✈️ Immigration Process",
-                stepByStep: "Step by Step",
-                flightLanding: "Flight <br>Landing",
-                flightLanding1: "Carry a pen for landing card/customs declaration",
-                flightLanding2: "Open \"Customs Passenger Finger Service\" mini-program",
-                flightLanding3: "Stay seated until arrival",
-                quarantineInspection: "Quarantine Inspection",
-                quarantine1: "Scan QR Code to get Customs Declaration Code",
-                quarantine2: "Keep passport/boarding pass ready",
-                borderInspection: "Border <br> Inspection",
-                border1: "Take the \"foreigner's lane\" (passport icons)",
-                border2: "Get your passport stamped",
-                baggageClaim: "Baggage <br> Claim",
-                baggage1: "Check screens for your flight's carousel",
-                baggage2: "Use bright tags/AirTags for easy ID",
-                customsInspection: "Customs <br> Inspection",
-                customs1: "Nothing to declare → Green Channel",
-                customs2: "Goods to declare → Red Channel",
-                customs3: "Meat/fruit/seeds may be confiscated",
-                leavingAirport: "Leaving the Airport",
-                leaving1: "Hotel pickup: Reserve in advance",
-                leaving2: "Cab: Follow signs to queue area",
-                leaving3: "Metro: Follow airport signs",
-                airportTips: "⚡ Airport Tips",
-                airportTip1: "Free WiFi (passport register, 2h limit)",
-                airportTip2: "Currency exchange: Poor rates (small amounts only)",
-                airportTip3: "Carry power banks to avoid dead phones",
-                airportTip4: "Activate SIMs via airport WiFi",
-                airportTip5: "Emergency: +86-12360 (press 2 for English)",
-                prohibitedItems: "🚫 Prohibited Items",
-                prohibited1: "Meat/fruit/seeds (may be confiscated)",
-                prohibited2: "Duty-free: 2 cigarettes/alcohol bottles max",
-                followRules: "Follow airport signs and instructions for a smooth entry ✨",
-                footerEditor: "Editors: Liu Sisi, Wu Xiangwei, Xu Xinyi",
-                footerCopyright: "© 2025 Navigating China Handbook | All Rights Reserved"
-            },
-            zh: {
-                home: "首页",
-                guide: "指南",
-                tips: "小贴士",
-                about: "关于",
-                language: "语言",
-                preparationEntry: "行前准备 & 入境流程",
-                preparationDesc: "赴华旅行前需要准备的所有事项 🧳",
-                listOfItems: "📋 物品清单",
-                checklist: "清单",
-                credentials: "证件类",
-                passport: "护照（有效期大于6个月）",
-                visa: "签证（免签期除外）",
-                paymentInstrument: "支付工具",
-                cash: "现金（≤2万元）、银联/维萨/万事达卡",
-                alipay: "支付宝/微信支付（需先绑定境外卡）",
-                electronicEquipment: "电子设备",
-                charger: "充电器（≤2万毫安）+ 国标转换插头",
-                devices: "手机、平板、相机、笔记本电脑等",
-                clothing: "衣物",
-                climate: "根据当地气候准备（中国各地气候不同）",
-                weather: "提前查询目的地天气",
-                utilities: "实用物品",
-                simCard: "本地SIM/虚拟SIM卡 + 银行卡PIN码",
-                allergyCard: "中英双语过敏卡 + 药品翻译件",
-                luggage: "行李牌 + AirTag（用于追踪）",
-                emergencyBackup: "应急备用",
-                contactList: "紧急联系人列表 + 酒店预订确认单",
-                medications: "个人药品 + 急救包",
-                proTip: "小贴士：将所有重要文件制作电子版并存储在云端！",
-                immigrationProcess: "✈️ 入境流程",
-                stepByStep: "分步指南",
-                flightLanding: "航班落地",
-                flightLanding1: "携带笔填写入境卡/海关申报单",
-                flightLanding2: "打开“海关旅客指尖服务”小程序",
-                flightLanding3: "落地前保持就座",
-                quarantineInspection: "检疫检查",
-                quarantine1: "扫码获取海关申报码",
-                quarantine2: "准备好护照/登机牌",
-                borderInspection: "边防检查",
-                border1: "走“外国人通道”（有护照标识）",
-                border2: "护照盖章",
-                baggageClaim: "提取行李",
-                baggage1: "查看屏幕找到航班对应的行李转盘",
-                baggage2: "使用醒目行李牌/AirTag便于识别",
-                customsInspection: "海关检查",
-                customs1: "无申报物品 → 绿色通道",
-                customs2: "有申报物品 → 红色通道",
-                customs3: "肉类/水果/种子可能被没收",
-                leavingAirport: "离开机场",
-                leaving1: "酒店接送：提前预约",
-                leaving2: "出租车：跟随指示牌到排队区",
-                leaving3: "地铁：跟随机场指示牌",
-                airportTips: "⚡ 机场小贴士",
-                airportTip1: "免费WiFi（凭护照注册，限时2小时）",
-                airportTip2: "货币兑换：汇率差（仅兑换小额）",
-                airportTip3: "携带充电宝避免手机没电",
-                airportTip4: "通过机场WiFi激活SIM卡",
-                airportTip5: "紧急联系：海关12360（按2转英文）",
-                prohibitedItems: "🚫 违禁物品",
-                prohibited1: "肉类/水果/种子（可能被没收）",
-                prohibited2: "免税品：香烟2条/酒水2瓶为限",
-                followRules: "遵循机场指示牌和工作人员指引，顺利入境 ✨",
-                footerEditor: "编辑：刘思思、吴翔伟、徐欣怡",
-                footerCopyright: "© 2025 中国出行指南 | 保留所有权利"
+
+        <!-- ✅ i18n: robust language switching (no index-based selectors) -->
+        <script>
+            const languageTexts = {
+                en: {
+                    home: "Home",
+                    guide: "Guide",
+                    buy: "Buy",
+                    about: "About",
+                    language: "Language",
+
+                    subnavPrep: "Preparation & Entry",
+                    subnavTransShort: "Transport & Maps",
+                    subnavTrans: "Transportation & Navigation",
+                    subnavPayShort: "Payment & Tax",
+                    subnavPay: "Payment & Tax Refund",
+                    subnavAcco: "Accommodation",
+                    subnavEmerShort: "Emergency",
+                    subnavEmer: "Emergency Handling",
+                    subnavCultShort: "Culture",
+                    subnavCult: "Travel & Culture",
+
+                    crumbHome: "Home",
+                    crumbGuide: "Guide",
+                    crumbCurrent: "Preparation & Entry",
+
+                    preparationEntry: "Preparation & Entry",
+                    preparationDesc: "Everything you need to prepare before your trip to China 🧳",
+
+                    listOfItems: "📋 List of Items",
+                    checklist: "Checklist",
+                    checklistProgress: "Checklist Progress:",
+                    checklistReset: "Reset checklist",
+
+                    credentials: "Credentials",
+                    passport: "Passport (valid for > 6 months)",
+                    visa: "Visa (except visa waiver periods)",
+
+                    clothing: "Clothing",
+                    climate: "Pack for local climate (varies across China)",
+                    weather: "Check destination weather in advance",
+
+                    paymentInstrument: "Payment Instrument",
+                    cash: "Cash (≤ ¥20,000)",
+                    bankcard: "UnionPay/Visa/Mastercard and other bank cards",
+                    alipay: "Alipay/WeChat with external card binding",
+
+                    emergencyBackup: "Emergency Backup",
+                    contactCards: "Emergency contact cards",
+                    hotel: "Hotel reservations",
+                    meds: "Medications",
+
+                    electronicEquipment: "Electronic Equipment",
+                    charger: "Charger (≤ 20,000 mAh)",
+                    adapter: "China-standard plug adapter",
+                    camera: "Camera",
+                    phone: "Cell Phone",
+                    tablet: "Tablet",
+                    computer: "Computer",
+
+                    utilities: "Utilities",
+                    sim: "Local SIM/eSIM card",
+                    pin: "Card skimmer pin",
+                    allergy: "Chinese/English allergy card",
+                    medTrans: "Medication translation form",
+                    luggage: "Luggage tag",
+                    airtag: "AirTag",
+
+                    proTip: "Pro Tip: Download the offline map package Take a screenshot to save the air ticket, hotel order, passport page, the Chinese name of key address Prepare a Chinese allergy card with key information such as Peanut/Seafood Allergy for easy communication with merchants",
+
+                    immigrationProcess: "✈️ Immigration Process",
+                    stepByStep: "Step by Step",
+                    flightLandingHTML: "Flight <br>Landing",
+                    flightLanding1: "Carry a pen for landing card/customs declaration",
+                    flightLanding2: "Open \"Customs Passenger Finger Service\" mini-program",
+                    flightLanding3: "Stay seated until arrival",
+
+                    quarantineInspection: "Quarantine Inspection",
+                    quarantine1: "Scan QR Code to get Customs Declaration Code",
+                    quarantine2: "Keep passport/boarding pass ready",
+
+                    borderInspectionHTML: "Border <br> Inspection",
+                    border1: "Take the \"foreigner's lane\" (passport icons)",
+                    border2: "Get your passport stamped",
+
+                    baggageClaimHTML: "Baggage <br> Claim",
+                    baggage1: "Check screens for your flight's carousel",
+                    baggage2: "Use bright tags/AirTags for easy ID",
+
+                    customsInspectionHTML: "Customs <br> Inspection",
+                    customs1: "Nothing to declare → Green Channel",
+                    customs2: "Goods to declare → Red Channel",
+                    customs3: "Meat/fruit/seeds may be confiscated",
+
+                    leavingAirport: "Leaving the Airport",
+                    leaving1: "Hotel pickup: Reserve in advance",
+                    leaving2: "Cab: Follow signs to queue area",
+                    leaving3: "Metro: Follow airport signs",
+
+                    airportTips: "⚡ Airport Tips",
+                    airportTip1: "Free WiFi (passport register, 2h limit)",
+                    airportTip2: "Currency exchange: Poor rates (small amounts only)",
+                    airportTip3: "Carry power banks to avoid dead phones",
+                    airportTip4: "Activate SIMs via airport WiFi",
+                    airportTip5: "Emergency: +86-12360 (press 2 for English)",
+
+                    prohibitedItems: "🚫 Prohibited Items",
+                    prohibited1: "Meat/fruit/seeds (may be confiscated)",
+                    prohibited2: "Duty-free: 2 cigarettes/alcohol bottles max",
+
+                    followRules: "Follow airport signs and instructions for a smooth entry ✨",
+
+                    footerEditor: "Editors: Liu Sisi, Wu Xiangwei, Xu Xinyi",
+                    footerCopyright: "© 2025 Navigating China Handbook | All Rights Reserved"
+                },
+
+                zh: {
+                    home: "首页",
+                    guide: "指南",
+                    buy: "购买",
+                    about: "关于",
+                    language: "语言",
+
+                    subnavPrep: "行前准备 & 入境",
+                    subnavTransShort: "交通 & 导航",
+                    subnavTrans: "交通出行 & 导航",
+                    subnavPayShort: "支付 & 退税",
+                    subnavPay: "支付 & 退税",
+                    subnavAcco: "住宿",
+                    subnavEmerShort: "紧急",
+                    subnavEmer: "紧急处理",
+                    subnavCultShort: "文化",
+                    subnavCult: "旅行 & 文化",
+
+                    crumbHome: "首页",
+                    crumbGuide: "指南",
+                    crumbCurrent: "行前准备 & 入境",
+
+                    preparationEntry: "行前准备 & 入境流程",
+                    preparationDesc: "赴华旅行前需要准备的所有事项 🧳",
+
+                    listOfItems: "📋 物品清单",
+                    checklist: "清单",
+                    checklistProgress: "清单进度：",
+                    checklistReset: "重置清单",
+
+                    credentials: "证件类",
+                    passport: "护照（有效期大于6个月）",
+                    visa: "签证（免签期除外）",
+
+                    clothing: "衣物",
+                    climate: "根据当地气候准备（中国各地气候不同）",
+                    weather: "提前查询目的地天气",
+
+                    paymentInstrument: "支付工具",
+                    cash: "现金（≤2万元）",
+                    bankcard: "银联/维萨/万事达等银行卡",
+                    alipay: "支付宝/微信支付（需先绑定境外卡）",
+
+                    emergencyBackup: "应急备用",
+                    contactCards: "紧急联系人卡片",
+                    hotel: "酒店预订确认单",
+                    meds: "常用药品",
+
+                    electronicEquipment: "电子设备",
+                    charger: "充电宝（≤2万毫安）",
+                    adapter: "国标转换插头",
+                    camera: "相机",
+                    phone: "手机",
+                    tablet: "平板",
+                    computer: "电脑",
+
+                    utilities: "实用物品",
+                    sim: "本地SIM/虚拟SIM卡",
+                    pin: "银行卡PIN码",
+                    allergy: "中英双语过敏卡",
+                    medTrans: "药品翻译件",
+                    luggage: "行李牌",
+                    airtag: "AirTag 追踪器",
+
+                    proTip: "小贴士：将所有重要文件制作电子版并存储在云端！",
+
+                    immigrationProcess: "✈️ 入境流程",
+                    stepByStep: "分步指南",
+                    flightLandingHTML: "航班<br>落地",
+                    flightLanding1: "携带笔填写入境卡/海关申报单",
+                    flightLanding2: "打开“海关旅客指尖服务”小程序",
+                    flightLanding3: "落地前保持就座",
+
+                    quarantineInspection: "检疫检查",
+                    quarantine1: "扫码获取海关申报码",
+                    quarantine2: "准备好护照/登机牌",
+
+                    borderInspectionHTML: "边防<br>检查",
+                    border1: "走“外国人通道”（有护照标识）",
+                    border2: "护照盖章",
+
+                    baggageClaimHTML: "提取<br>行李",
+                    baggage1: "查看屏幕找到航班对应的行李转盘",
+                    baggage2: "使用醒目行李牌/AirTag便于识别",
+
+                    customsInspectionHTML: "海关<br>检查",
+                    customs1: "无申报物品 → 绿色通道",
+                    customs2: "有申报物品 → 红色通道",
+                    customs3: "肉类/水果/种子可能被没收",
+
+                    leavingAirport: "离开机场",
+                    leaving1: "酒店接送：提前预约",
+                    leaving2: "出租车：跟随指示牌到排队区",
+                    leaving3: "地铁：跟随机场指示牌",
+
+                    airportTips: "⚡ 机场小贴士",
+                    airportTip1: "免费WiFi（凭护照注册，限时2小时）",
+                    airportTip2: "货币兑换：汇率差（仅兑换小额）",
+                    airportTip3: "携带充电宝避免手机没电",
+                    airportTip4: "通过机场WiFi激活SIM卡",
+                    airportTip5: "紧急联系：海关12360（按2转英文）",
+
+                    prohibitedItems: "🚫 违禁物品",
+                    prohibited1: "肉类/水果/种子（可能被没收）",
+                    prohibited2: "免税品：香烟2条/酒水2瓶为限",
+
+                    followRules: "遵循机场指示牌和工作人员指引，顺利入境 ✨",
+
+                    footerEditor: "编辑：刘思思、吴翔伟、徐欣怡",
+                    footerCopyright: "© 2025 中国出行指南 | 保留所有权利"
+                }
+            };
+
+            const LANG_KEY = "nc_lang";
+            let currentLang = localStorage.getItem(LANG_KEY) || document.documentElement.lang || "en";
+
+            function setText(el, value) {
+                if (!el) return;
+                el.textContent = value ?? "";
             }
-        };
+            function setHTML(el, value) {
+                if (!el) return;
+                el.innerHTML = value ?? "";
+            }
 
-        let currentLang = "en";
+            // Replace the trailing text/span inside a <li> (works before/after checkbox conversion)
+            function setLiContent(li, value) {
+                if (!li) return;
 
-        function switchLanguage(lang) {
-            if (lang === currentLang) return;
-            currentLang = lang;
-            document.documentElement.lang = lang;
-            const texts = languageTexts[lang];
+                // ✅ 目标：li 里只保留：①第一个“控件/图标”(input 或 span) ②唯一一个 span.li-text
+                // 这样可以防止出现“中文一列 + 英文一列”的混排重复。
 
-            // 替换导航栏文本
-            document.querySelectorAll('nav a')[0].textContent = texts.home;
-            document.querySelectorAll('nav a')[1].textContent = texts.guide;
-            document.querySelectorAll('nav a')[2].textContent = texts.tips;
-            document.querySelectorAll('nav a')[3].textContent = texts.about;
-            document.querySelector('.group button span:first-child').textContent = texts.language;
+                // 1) 删除所有“可见的纯文本节点”
+                Array.from(li.childNodes).forEach((n) => {
+                    if (n.nodeType === Node.TEXT_NODE && n.textContent.trim().length) {
+                        li.removeChild(n);
+                    }
+                });
 
-            // 替换标题区文本
-            document.querySelector('h2').textContent = texts.preparationEntry;
-            document.querySelector('h2 + p').textContent = texts.preparationDesc;
+                // 2) 确定要保留的第一个控件（checkbox / 圆点 / emoji span）
+                const firstControl = li.querySelector(":scope > input, :scope > span");
+                // 3) 确保只存在一个 li-text
+                let textSpan = li.querySelector(":scope > span.li-text");
+                const allTextSpans = li.querySelectorAll(":scope > span.li-text");
+                if (allTextSpans.length > 1) {
+                    for (let i = 1; i < allTextSpans.length; i++) allTextSpans[i].remove();
+                    textSpan = allTextSpans[0];
+                }
 
-            // 替换物品清单标题
-            document.querySelector('h3 span:first-child').textContent = texts.listOfItems;
-            document.querySelector('h3 span.absolute').textContent = texts.checklist;
+                // 4) 移除除 firstControl / textSpan 之外的其它“顶层元素节点”（这是消除重复的关键）
+                Array.from(li.children).forEach((el) => {
+                    if (el === firstControl) return;
+                    if (el.classList && el.classList.contains("li-text")) return;
+                    // 其它顶层 span（例如以前遗留的第二段文本）直接删
+                    el.remove();
+                });
 
-            // 替换物品清单卡片文本
-            document.querySelectorAll('h4')[0].textContent = texts.credentials;
-            document.querySelectorAll('h4')[0].nextElementSibling.querySelectorAll('li')[0].lastChild.textContent = texts.passport;
-            document.querySelectorAll('h4')[0].nextElementSibling.querySelectorAll('li')[1].lastChild.textContent = texts.visa;
-            
-            document.querySelectorAll('h4')[1].textContent = texts.paymentInstrument;
-            document.querySelectorAll('h4')[1].nextElementSibling.querySelectorAll('li')[0].lastChild.textContent = texts.cash;
-            document.querySelectorAll('h4')[1].nextElementSibling.querySelectorAll('li')[1].lastChild.textContent = texts.alipay;
-            
-            document.querySelectorAll('h4')[2].textContent = texts.electronicEquipment;
-            document.querySelectorAll('h4')[2].nextElementSibling.querySelectorAll('li')[0].lastChild.textContent = texts.charger;
-            document.querySelectorAll('h4')[2].nextElementSibling.querySelectorAll('li')[1].lastChild.textContent = texts.devices;
-            
-            document.querySelectorAll('h4')[3].textContent = texts.clothing;
-            document.querySelectorAll('h4')[3].nextElementSibling.querySelectorAll('li')[0].lastChild.textContent = texts.climate;
-            document.querySelectorAll('h4')[3].nextElementSibling.querySelectorAll('li')[1].lastChild.textContent = texts.weather;
-            
-            document.querySelectorAll('h4')[4].textContent = texts.utilities;
-            document.querySelectorAll('h4')[4].nextElementSibling.querySelectorAll('li')[0].lastChild.textContent = texts.simCard;
-            document.querySelectorAll('h4')[4].nextElementSibling.querySelectorAll('li')[1].lastChild.textContent = texts.allergyCard;
-            document.querySelectorAll('h4')[4].nextElementSibling.querySelectorAll('li')[2].lastChild.textContent = texts.luggage;
-            
-            document.querySelectorAll('h4')[5].textContent = texts.emergencyBackup;
-            document.querySelectorAll('h4')[5].nextElementSibling.querySelectorAll('li')[0].lastChild.textContent = texts.contactList;
-            document.querySelectorAll('h4')[5].nextElementSibling.querySelectorAll('li')[1].lastChild.textContent = texts.medications;
+                // 5) 如果没有 li-text，就创建并插到 firstControl 后面
+                if (!textSpan) {
+                    textSpan = document.createElement("span");
+                    textSpan.className = "li-text";
+                    if (firstControl && firstControl.nextSibling) {
+                        li.insertBefore(textSpan, firstControl.nextSibling);
+                    } else {
+                        li.appendChild(textSpan);
+                    }
+                }
 
-            // 替换小贴士文本
-            document.querySelector('.mt-10 p').childNodes[2].textContent = texts.proTip;
+                textSpan.textContent = value ?? "";
+            }
 
-            // 替换入境流程标题
-            document.querySelectorAll('section.border-t-2 h3 span:first-child')[0].textContent = texts.immigrationProcess;
-            document.querySelectorAll('section.border-t-2 h3 span.absolute')[0].textContent = texts.stepByStep;
+            function applyLanguage(lang) {
+                const t = languageTexts[lang] || languageTexts.en;
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                localStorage.setItem(LANG_KEY, lang);
 
-            // 修复：使用ID精准替换入境流程6个卡片的标题和列表文本（避免中英文混排）
-            // 1. 航班落地
-            document.getElementById('flight-landing-title').innerHTML = texts.flightLanding;
-            document.querySelectorAll('#flight-landing-list li')[0].querySelector('span:last-child').textContent = texts.flightLanding1;
-            document.querySelectorAll('#flight-landing-list li')[1].querySelector('span:last-child').textContent = texts.flightLanding2;
-            document.querySelectorAll('#flight-landing-list li')[2].querySelector('span:last-child').textContent = texts.flightLanding3;
-            
-            // 2. 检疫检查
-            document.getElementById('quarantine-inspection-title').textContent = texts.quarantineInspection;
-            document.querySelectorAll('#quarantine-inspection-list li')[0].querySelector('span:last-child').textContent = texts.quarantine1;
-            document.querySelectorAll('#quarantine-inspection-list li')[1].querySelector('span:last-child').textContent = texts.quarantine2;
-            
-            // 3. 边防检查
-            document.getElementById('border-inspection-title').innerHTML = texts.borderInspection;
-            document.querySelectorAll('#border-inspection-list li')[0].querySelector('span:last-child').textContent = texts.border1;
-            document.querySelectorAll('#border-inspection-list li')[1].querySelector('span:last-child').textContent = texts.border2;
-            
-            // 4. 提取行李
-            document.getElementById('baggage-claim-title').innerHTML = texts.baggageClaim;
-            document.querySelectorAll('#baggage-claim-list li')[0].querySelector('span:last-child').textContent = texts.baggage1;
-            document.querySelectorAll('#baggage-claim-list li')[1].querySelector('span:last-child').textContent = texts.baggage2;
-            
-            // 5. 海关检查
-            document.getElementById('customs-inspection-title').innerHTML = texts.customsInspection;
-            document.querySelectorAll('#customs-inspection-list li')[0].querySelector('span:last-child').textContent = texts.customs1;
-            document.querySelectorAll('#customs-inspection-list li')[1].querySelector('span:last-child').textContent = texts.customs2;
-            document.querySelectorAll('#customs-inspection-list li')[2].querySelector('span:last-child').textContent = texts.customs3;
-            
-            // 6. 离开机场
-            document.getElementById('leaving-airport-title').textContent = texts.leavingAirport;
-            document.querySelectorAll('#leaving-airport-list li')[0].querySelector('span:last-child').textContent = texts.leaving1;
-            document.querySelectorAll('#leaving-airport-list li')[1].querySelector('span:last-child').textContent = texts.leaving2;
-            document.querySelectorAll('#leaving-airport-list li')[2].querySelector('span:last-child').textContent = texts.leaving3;
+                // Main nav (stable)
+                const mainLinks = document.querySelectorAll("#main-nav > a");
+                if (mainLinks[0]) setText(mainLinks[0], t.home);
+                if (mainLinks[1]) setText(mainLinks[1], t.guide);
+                //***************************if (mainLinks[2]) setText(mainLinks[2], t.tips);***************************
+                if (mainLinks[2]) setText(mainLinks[2], t.buy);
 
-            // 替换机场小贴士
-            document.querySelectorAll('section.border-t-2 h4')[6].textContent = texts.airportTips;
-            document.querySelectorAll('section.border-t-2 h4')[6].nextElementSibling.querySelectorAll('li')[0].lastChild.textContent = texts.airportTip1;
-            document.querySelectorAll('section.border-t-2 h4')[6].nextElementSibling.querySelectorAll('li')[1].lastChild.textContent = texts.airportTip2;
-            document.querySelectorAll('section.border-t-2 h4')[6].nextElementSibling.querySelectorAll('li')[2].lastChild.textContent = texts.airportTip3;
-            document.querySelectorAll('section.border-t-2 h4')[6].nextElementSibling.querySelectorAll('li')[3].lastChild.textContent = texts.airportTip4;
-            document.querySelectorAll('section.border-t-2 h4')[6].nextElementSibling.querySelectorAll('li')[4].lastChild.textContent = texts.airportTip5;
 
-            // 替换违禁品提示
-            document.querySelectorAll('section.border-t-2 h4')[7].textContent = texts.prohibitedItems;
-            document.querySelectorAll('section.border-t-2 h4')[7].nextElementSibling.querySelectorAll('li')[0].lastChild.textContent = texts.prohibited1;
-            document.querySelectorAll('section.border-t-2 h4')[7].nextElementSibling.querySelectorAll('li')[1].lastChild.textContent = texts.prohibited2;
+                if (mainLinks[3]) setText(mainLinks[3], t.about);
+                setText(document.querySelector(".group button span:first-child"), t.language);
 
-            // 替换最后提示文本
-            document.querySelector('.flex-col.items-center.justify-center p').textContent = texts.followRules;
+                // Sub nav (stable by ids)
+                setText(document.querySelector("#subnav-prep span:last-child"), t.subnavPrep);
+                setText(document.querySelector("#subnav-trans span.md\\:inline"), t.subnavTransShort);
+                setText(document.querySelector("#subnav-trans span.hidden.lg\\:inline"), t.subnavTrans);
+                setText(document.querySelector("#subnav-pay span.md\\:inline"), t.subnavPayShort);
+                setText(document.querySelector("#subnav-pay span.hidden.lg\\:inline"), t.subnavPay);
+                setText(document.querySelector("#subnav-acco span:last-child"), t.subnavAcco);
+                setText(document.querySelector("#subnav-emer span.md\\:inline"), t.subnavEmerShort);
+                setText(document.querySelector("#subnav-emer span.hidden.lg\\:inline"), t.subnavEmer);
+                setText(document.querySelector("#subnav-cult span.md\\:inline"), t.subnavCultShort);
+                setText(document.querySelector("#subnav-cult span.hidden.lg\\:inline"), t.subnavCult);
 
-            // 替换页脚文本
-            document.querySelector('footer p:first-child').textContent = texts.footerEditor;
-            document.querySelector('footer p:last-child').textContent = texts.footerCopyright;
-        }
+                // Breadcrumbs (ids are <a> directly)
+                setText(document.getElementById("crumb-home"), t.crumbHome);
+                setText(document.getElementById("crumb-guide"), t.crumbGuide);
+                setText(document.getElementById("crumb-current"), t.crumbCurrent);
 
-        // 绑定事件
-        document.getElementById('lang-en').addEventListener('click', () => switchLanguage('en'));
-        document.getElementById('lang-zh').addEventListener('click', () => switchLanguage('zh'));
-    </script>
+                // Hero title/desc
+                setText(document.querySelector("h2"), t.preparationEntry);
+                setText(document.querySelector("h2 + p"), t.preparationDesc);
+
+                // List header
+                const listTitle = document.querySelector("#items-checklist h3 span.bg-white");
+                const badge = document.querySelector("#items-checklist h3 span.absolute");
+                setText(listTitle, t.listOfItems);
+                setText(badge, t.checklist);
+
+                // Checklist tools
+                setText(document.querySelector("#items-checklist .text-sm .font-semibold"), t.checklistProgress);
+                setText(document.getElementById("checklist-reset"), t.checklistReset);
+
+                // Items cards (robust via image alt)
+                const cardByAlt = (alt) => document.querySelector(`img[alt="${alt}"]`)?.closest("div");
+                // Credentials
+                {
+                    const card = cardByAlt("Credentials Icon");
+                    if (card) {
+                        setText(card.querySelector("h4"), t.credentials);
+                        const lis = card.querySelectorAll("ul li");
+                        setLiContent(lis[0], t.passport);
+                        setLiContent(lis[1], t.visa);
+                    }
+                }
+                // Clothing
+                {
+                    const card = cardByAlt("Clothing Icon");
+                    if (card) {
+                        setText(card.querySelector("h4"), t.clothing);
+                        const lis = card.querySelectorAll("ul li");
+                        setLiContent(lis[0], t.climate);
+                        setLiContent(lis[1], t.weather);
+                    }
+                }
+                // Payment
+                {
+                    const card = cardByAlt("Cash Icon");
+                    if (card) {
+                        setText(card.querySelector("h4"), t.paymentInstrument);
+                        const lis = card.querySelectorAll("ul li");
+                        setLiContent(lis[0], t.cash);
+                        setLiContent(lis[1], t.bankcard);
+                        setLiContent(lis[2], t.alipay);
+                    }
+                }
+                // Emergency
+                {
+                    const card = cardByAlt("Emergency Icon");
+                    if (card) {
+                        setText(card.querySelector("h4"), t.emergencyBackup);
+                        const lis = card.querySelectorAll("ul li");
+                        setLiContent(lis[0], t.contactCards);
+                        setLiContent(lis[1], t.hotel);
+                        setLiContent(lis[2], t.meds);
+                    }
+                }
+                // Electronic
+                {
+                    const card = cardByAlt("Charger Icon");
+                    if (card) {
+                        setText(card.querySelector("h4"), t.electronicEquipment);
+                        const lis = card.querySelectorAll("ul li");
+                        setLiContent(lis[0], t.charger);
+                        setLiContent(lis[1], t.adapter);
+                        setLiContent(lis[2], t.camera);
+                        setLiContent(lis[3], t.phone);
+                        setLiContent(lis[4], t.tablet);
+                        setLiContent(lis[5], t.computer);
+                    }
+                }
+                // Utilities
+                {
+                    const card = cardByAlt("Utils Icon");
+                    if (card) {
+                        setText(card.querySelector("h4"), t.utilities);
+                        const lis = card.querySelectorAll("ul li");
+                        setLiContent(lis[0], t.sim);
+                        setLiContent(lis[1], t.pin);
+                        setLiContent(lis[2], t.allergy);
+                        setLiContent(lis[3], t.medTrans);
+                        setLiContent(lis[4], t.luggage);
+                        setLiContent(lis[5], t.airtag);
+                    }
+                }
+
+                // Pro tip: replace the middle text only
+                const proTipP = document.querySelector("#items-checklist .mt-10 p");
+                if (proTipP) {
+                    // keep the ✨ spans, just replace the text in between
+                    const nodes = Array.from(proTipP.childNodes);
+                    const textNode = nodes.find(n => n.nodeType === Node.TEXT_NODE && n.textContent.trim().length);
+                    if (textNode) textNode.textContent = " " + t.proTip + " ";
+                    else proTipP.textContent = t.proTip;
+                }
+
+                // Immigration title/badge
+                const immHeader = document.querySelector("section.border-t-2 h3");
+                if (immHeader) {
+                    const titleSpan = immHeader.querySelector("span.bg-white");
+                    const badgeSpan = immHeader.querySelector("span.absolute");
+                    setText(titleSpan, t.immigrationProcess);
+                    setText(badgeSpan, t.stepByStep);
+                }
+
+                // Immigration steps (ids already exist)
+                setHTML(document.getElementById("flight-landing-title"), t.flightLandingHTML);
+                setLiContent(document.querySelectorAll("#flight-landing-list li")[0], t.flightLanding1);
+                setLiContent(document.querySelectorAll("#flight-landing-list li")[1], t.flightLanding2);
+                setLiContent(document.querySelectorAll("#flight-landing-list li")[2], t.flightLanding3);
+
+                setText(document.getElementById("quarantine-inspection-title"), t.quarantineInspection);
+                setLiContent(document.querySelectorAll("#quarantine-inspection-list li")[0], t.quarantine1);
+                setLiContent(document.querySelectorAll("#quarantine-inspection-list li")[1], t.quarantine2);
+
+                setHTML(document.getElementById("border-inspection-title"), t.borderInspectionHTML);
+                setLiContent(document.querySelectorAll("#border-inspection-list li")[0], t.border1);
+                setLiContent(document.querySelectorAll("#border-inspection-list li")[1], t.border2);
+
+                setHTML(document.getElementById("baggage-claim-title"), t.baggageClaimHTML);
+                setLiContent(document.querySelectorAll("#baggage-claim-list li")[0], t.baggage1);
+                setLiContent(document.querySelectorAll("#baggage-claim-list li")[1], t.baggage2);
+
+                setHTML(document.getElementById("customs-inspection-title"), t.customsInspectionHTML);
+                setLiContent(document.querySelectorAll("#customs-inspection-list li")[0], t.customs1);
+                setLiContent(document.querySelectorAll("#customs-inspection-list li")[1], t.customs2);
+                setLiContent(document.querySelectorAll("#customs-inspection-list li")[2], t.customs3);
+
+                setText(document.getElementById("leaving-airport-title"), t.leavingAirport);
+                setLiContent(document.querySelectorAll("#leaving-airport-list li")[0], t.leaving1);
+                setLiContent(document.querySelectorAll("#leaving-airport-list li")[1], t.leaving2);
+                setLiContent(document.querySelectorAll("#leaving-airport-list li")[2], t.leaving3);
+
+                // Airport tips / prohibited / follow text (3 cards in the last grid)
+                const tipsGrid = document.querySelector("section.border-t-2 .grid.grid-cols-1.md\\:grid-cols-3.gap-6.mt-10");
+                if (tipsGrid) {
+                    const cards = tipsGrid.querySelectorAll(":scope > div");
+                    const tipsCard = cards[0];
+                    const prohCard = cards[1];
+                    const followCard = cards[2];
+
+                    if (tipsCard) {
+                        setText(tipsCard.querySelector("h4"), t.airportTips);
+                        const lis = tipsCard.querySelectorAll("ul li");
+                        setLiContent(lis[0], t.airportTip1);
+                        setLiContent(lis[1], t.airportTip2);
+                        setLiContent(lis[2], t.airportTip3);
+                        setLiContent(lis[3], t.airportTip4);
+                        setLiContent(lis[4], t.airportTip5);
+                    }
+                    if (prohCard) {
+                        setText(prohCard.querySelector("h4"), t.prohibitedItems);
+                        const lis = prohCard.querySelectorAll("ul li");
+                        setLiContent(lis[0], t.prohibited1);
+                        setLiContent(lis[1], t.prohibited2);
+                    }
+                    if (followCard) {
+                        setText(followCard.querySelector("p"), t.followRules);
+                    }
+                }
+
+                // Footer
+                const footerPs = document.querySelectorAll("footer p");
+                if (footerPs[0]) setText(footerPs[0], t.footerEditor);
+                if (footerPs[1]) setText(footerPs[1], t.footerCopyright);
+            }
+
+            // Bind events
+            document.addEventListener("DOMContentLoaded", () => {
+                document.getElementById("lang-en")?.addEventListener("click", () => applyLanguage("en"));
+                document.getElementById("lang-zh")?.addEventListener("click", () => applyLanguage("zh"));
+
+                // init
+                applyLanguage(currentLang);
+            });
+        </script>
+
+        <!-- ✅ checklist enhancement (ONLY ONCE, outside i18n script) -->
+        <script>
+            (function () {
+                const root = document.getElementById("items-checklist");
+                if (!root) return;
+
+                const colorMap = {
+                    "bg-sunny": "#FF9F45",
+                    "bg-skyblue": "#A7E1F8",
+                    "bg-mint": "#B2E8C2",
+                    "bg-peach": "#F8B5B5",
+                    "bg-lavender": "#D8BFD8",
+                    "bg-lemon": "#FFE066",
+                };
+
+                const storageKey = "nc_checklist_" + location.pathname;
+                const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+
+                const bulletSpans = root.querySelectorAll("ul li span.inline-block.w-4.h-4.rounded-full");
+                const checkboxes = [];
+
+                bulletSpans.forEach((bullet, idx) => {
+                    const li = bullet.closest("li");
+                    if (!li) return;
+
+                    let accent = "#FF9F45";
+                    for (const cls of bullet.classList) {
+                        if (colorMap[cls]) { accent = colorMap[cls]; break; }
+                    }
+
+                    li.classList.add("check-li");
+                    li.style.setProperty("--ck-accent", accent);
+
+                    const cb = document.createElement("input");
+                    cb.type = "checkbox";
+                    cb.className = "check-box";
+                    cb.setAttribute("aria-label", "checklist item");
+
+                    const key = String(idx);
+                    cb.checked = Boolean(saved[key]);
+
+                    bullet.replaceWith(cb);
+
+                    // ✅ 把原来的文本（如果是裸文本节点）包进 <span class="li-text">，方便 i18n 精准替换
+                    if (!li.querySelector(":scope > span.li-text")) {
+                        const textNodes = Array.from(li.childNodes).filter(
+                            (n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim().length
+                        );
+                        const combined = textNodes.map(n => n.textContent).join(" ").trim();
+                        textNodes.forEach(n => li.removeChild(n));
+
+                        const textSpan = document.createElement("span");
+                        textSpan.className = "li-text";
+                        textSpan.textContent = combined;
+                        cb.insertAdjacentElement("afterend", textSpan);
+                    }
+
+
+                    const applyDone = () => li.classList.toggle("is-done", cb.checked);
+                    applyDone();
+
+                    cb.addEventListener("change", () => {
+                        saved[key] = cb.checked;
+                        localStorage.setItem(storageKey, JSON.stringify(saved));
+                        applyDone();
+                        updateProgress();
+                    });
+
+                    checkboxes.push(cb);
+                });
+
+                const countEl = document.getElementById("checklist-count");
+                const barEl = document.getElementById("checklist-bar");
+                const resetBtn = document.getElementById("checklist-reset");
+
+                function updateProgress() {
+                    const total = checkboxes.length;
+                    const done = checkboxes.filter(c => c.checked).length;
+                    if (countEl) countEl.textContent = `${done} / ${total}`;
+                    if (barEl) barEl.style.width = total ? `${Math.round(done / total * 100)}%` : "0%";
+                }
+
+                if (resetBtn) {
+                    resetBtn.addEventListener("click", () => {
+                        checkboxes.forEach((cb, idx) => {
+                            cb.checked = false;
+                            saved[String(idx)] = false;
+                            cb.dispatchEvent(new Event("change"));
+                        });
+                        localStorage.setItem(storageKey, JSON.stringify(saved));
+                        updateProgress();
+                    });
+                }
+
+                updateProgress();
+            })();
+        </script>
+
 </body>
 
 </html>
