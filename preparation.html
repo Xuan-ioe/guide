@@ -630,11 +630,11 @@
 
                         <!-- 上水平线（左→右），top:20px，到圆角块左边缘 -->
                         <div class="absolute bg-red-200"
-                            style="height:3px; left:16.67%; right:calc(100% - 83.33% + 18px); top:20px;"></div>
+                            style="height:3px; left:16.67%; right:calc(100% - 83.33% + 18px - 10px); top:20px;"></div>
 
                         <!-- 右侧圆角转折，连接上线(top:20px)和下线(top:60px)，高度40px，宽36px -->
                         <div class="absolute" style="
-            left: calc(83.33% - 18px);
+            left: calc(83.33% - 18px + 10px);
             top: 20px;
             width: 36px;
             height: 41px;
@@ -648,7 +648,7 @@
 
                         <!-- 下水平线（右→左），top:60px，延伸到粉点左侧 -->
                         <div class="absolute bg-pink-200"
-                            style="height:2px; left:calc(16.67% - 32px); right:calc(100% - 83.33% + 18px); top:59px;">
+                            style="height:2px; left:calc(16.67% - 32px); right:calc(100% - 83.33% + 18px - 10px); top:59px;">
                         </div>
 
                         <!-- 箭头：紧接下水平线左端，指向左 -->
