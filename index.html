@@ -14,7 +14,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Freckle+Face&family=Patrick+Hand&family=Playpen+Sans+Hebrew:wght@100..800&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Freckle+Face&family=Patrick+Hand&family=Playpen+Sans+Hebrew:wght@100..800&display=swap"
         rel="stylesheet">
 
     <script>
@@ -204,7 +205,8 @@
                     A Practical Handbook for Foreign Visitors
                 </h2>
                 <br>
-                <p class=" text-lg mb-6">Here is a handbook for foreign touristsin China, aiming to help everyone enjoya smooth and delightful journey.</p>
+                <p class=" text-lg mb-6">Here is a handbook for foreign touristsin China, aiming to help everyone enjoya
+                    smooth and delightful journey.</p>
                 <p class="mb-8">Wishing you a safe, smooth, and delightful journey in China! 🧳✨</p>
                 <br>
                 <a href="#contents-section"
@@ -222,38 +224,94 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- 1. Preparation & Entry -->
-                <a href="preparation.html"
-                    class="bg-sunny/20 p-6 doodle-border hover:shadow-lg transition-all transform hover:-translate-y-1">
+                <div class="sixcard bg-sunny/20 p-6 doodle-border hover:shadow-lg transition-all transform hover:-translate-y-1"
+                    data-target="preparation.html">
                     <div class="flex items-center mb-3">
                         <span
                             class="inline-flex items-center justify-center w-8 h-8 bg-sunny text-white rounded-full font-bold mr-3">01</span>
                         <h3 class="section-title text-xl">Preparation & Entry</h3>
                     </div>
 
-                    <p>Visa applications, entry requirements, and pre-trip essentials.</p>
-                </a>
+                    <ul class="text-sm list-disc pl-5 space-y-1">
+                        <li>
+                            <a href="preparation.html#listItem" class="hover:text-sunny transition-colors">
+                                List of Items
+                            </a>
+                        </li>
+                        <li>
+                            <a href="preparation.html#immig" class="hover:text-sunny transition-colors">
+                                Immigration Process
+                            </a>
+                        </li>
+                        <li>
+                            <a href="preparation.html#internet" class="hover:text-sunny transition-colors">
+                                Internet Access
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
                 <!-- 2. Transportation & Navigation -->
-                <div
-                    class="bg-skyblue/20 p-6 doodle-border hover:shadow-lg transition-all transform hover:-translate-y-1">
+                <div class="sixcard bg-skyblue/20 p-6 doodle-border hover:shadow-lg transition-all transform hover:-translate-y-1"
+                    data-target="transportation.html">
                     <div class="flex items-center mb-3">
                         <span
                             class="inline-flex items-center justify-center w-8 h-8 bg-skyblue text-white rounded-full font-bold mr-3">02</span>
                         <h3 class="section-title text-xl">Transportation & Navigation</h3>
                     </div>
-        
-                    <p>Getting around cities, high-speed trains, and navigation tips.</p>
+
+                    <ul class="text-sm list-disc pl-5 space-y-1">
+                        <li>
+                            <a href="transportation.html#transport" class="hover:text-skyblue transition-colors">
+                                Getting around cities
+                            </a>
+                        </li>
+                        <li>
+                            <a href="transportation.html#navtools" class="hover:text-skyblue transition-colors">
+                                Navigation Tools
+                            </a>
+                        </li>
+                        <li>
+                            <a href="transportation.html#navigation" class="hover:text-skyblue transition-colors">
+                                Navigation tips
+                            </a>
+                        </li>
+                    </ul>
                 </div>
 
+                
+
                 <!-- 3. Payment & Tax Refund -->
-                <div class="bg-mint/20 p-6 doodle-border hover:shadow-lg transition-all transform hover:-translate-y-1">
+                <div class="sixcard bg-mint/20 p-6 doodle-border hover:shadow-lg transition-all transform hover:-translate-y-1"
+                    data-target="payment.html">
                     <div class="flex items-center mb-3">
                         <span
                             class="inline-flex items-center justify-center w-8 h-8 bg-mint text-white rounded-full font-bold mr-3">03</span>
                         <h3 class="section-title text-xl">Payment & Tax Refund</h3>
                     </div>
-            
-                    <p>Mobile payment, cash usage, and tax-free shopping guides.</p>
+
+                    <ul class="text-sm list-disc pl-5 space-y-1">
+                        <li>
+                            <a href="payment.html#paymethod" class="hover:text-mint transition-colors">
+                                Payment Methods
+                            </a>
+                        </li>
+                        <li>
+                            <a href="payment.html#cash" class="hover:text-mint transition-colors">
+                                Cash Exchange
+                            </a>
+                        </li>
+                        <li>
+                            <a href="payment.html#taxrefund" class="hover:text-mint transition-colors">
+                                Tax Refund on Departure
+                            </a>
+                        </li>
+                        <li>
+                            <a href="payment.html#hainan" class="hover:text-mint transition-colors">
+                                Hainan Island Duty-Free Policy
+                            </a>
+                        </li>
+                    </ul>
                 </div>
 
                 <!-- 4. Accommodation -->
@@ -264,7 +322,7 @@
                             class="inline-flex items-center justify-center w-8 h-8 bg-peach text-white rounded-full font-bold mr-3">04</span>
                         <h3 class="section-title text-xl">Accommodation</h3>
                     </div>
-        
+
                     <p>Booking hotels, homestays, and local accommodation options.</p>
                 </div>
 
@@ -276,7 +334,7 @@
                             class="inline-flex items-center justify-center w-8 h-8 bg-lemon text-white rounded-full font-bold mr-3">05</span>
                         <h3 class="section-title text-xl">Emergency Handling</h3>
                     </div>
-                    
+
                     <p>Important contacts, medical help, and safety advice.</p>
                 </div>
 
@@ -288,9 +346,24 @@
                             class="inline-flex items-center justify-center w-8 h-8 bg-lavender text-white rounded-full font-bold mr-3">06</span>
                         <h3 class="section-title text-xl">Travel & Culture</h3>
                     </div>
-                
+
                     <p>Cultural etiquette, local festivals, and must-see attractions.</p>
                 </div>
+
+                <script>
+                    // 给所有带sixcard类的卡片添加点击事件
+                    document.querySelectorAll('.sixcard').forEach(card => {
+                        card.addEventListener('click', (e) => {
+                            // 如果点击的是内部的a标签，则不触发卡片跳转
+                            if (e.target.closest('a')) return;
+                            // 否则跳转到卡片指定的页面
+                            const target = card.dataset.target;
+                            if (target) window.location.href = target;
+                        });
+                        // 可选：添加鼠标手型光标，提示可点击
+                        card.style.cursor = 'pointer';
+                    });
+                </script>
             </div>
         </div>
     </section>
